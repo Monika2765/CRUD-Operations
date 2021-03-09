@@ -1,0 +1,46 @@
+{% extends "employeeapi/base.html" %}
+
+{% block content %}
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+
+        <tr>
+            <td>User Id</td>
+            <td>Amount</td>
+            <td>Coins_Balance</td>
+            <td>Txn_Type</td>
+            <td>Txn_Info</td>
+            <td>Action</td>
+            <td>Time</td>
+            <td>
+                <a href="{% url 'customer_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i>Add New
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customer_list %}
+            <tr>
+                <td>{{customer.user_id}}</td>
+                <td>{{customer.amount}}</td>
+                <td>{{customer.coins_balance}}</td>
+                <td>{{customer.txn_type}}</td>
+                <td>{{customer.txn_info}}</td>
+                <td>{{customer.action}}</td>
+                <td>{{customer.time}}</td>
+                <td>
+                    <a href="{% url 'customer_update' customer.id %}" class="btn text-secondary px-0">
+                        <button class="btn btn-success my-0">Edit</button>
+                    </a>
+                    <form action="{% url 'customer_delete' customer.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success my-0 mx-2 ">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}   
+    </tbody>
+</table>
+{% endblock content %}
+
